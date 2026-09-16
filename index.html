@@ -839,6 +839,31 @@ body[data-view-theme="dark"] .reader-body{
   backdrop-filter:blur(2px)!important;
 }
 
+
+/* --- Sin fondo geométrico dentro del contenido del himno --- */
+body.reader-open .app-shell,
+body.reader-open[data-view-theme="dark"] .app-shell{
+  background-image:none!important;
+  background:#06101a!important;
+}
+body.reader-open[data-view-theme="light"] .app-shell{
+  background-image:none!important;
+  background:#ffffff!important;
+}
+body.reader-open .app-shell::before,
+body.reader-open .app-shell::after{
+  content:none!important;
+  display:none!important;
+}
+body.reader-open #readerView,
+body.reader-open .reader,
+body.reader-open .reader-head,
+body.reader-open .reader-body{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 </head>
@@ -1159,6 +1184,7 @@ body[data-view-theme="dark"] .reader-body{
   function openHymn(id, push=true){
     const h = hymns.find(x => Number(x.id)===Number(id)); if(!h) return;
     state.view='reader'; state.currentId=h.id;
+    document.body.classList.add('reader-open');
     listView.classList.add('hidden'); readerView.classList.remove('hidden'); backBtn.classList.remove('hidden'); homeBtn.classList.add('hidden');
     readerNumber.textContent = `Himno ${h.id}`; readerTitle.textContent = h.title || `Himno ${h.id}`;
     readerBody.innerHTML = hymnDisplayBlocks(h).map(b=>{
@@ -1178,6 +1204,7 @@ body[data-view-theme="dark"] .reader-body{
 
   function showList(push=true){
     state.view='list'; state.currentId=null;
+    document.body.classList.remove('reader-open');
     readerView.classList.add('hidden'); listView.classList.remove('hidden'); backBtn.classList.add('hidden'); homeBtn.classList.add('hidden');
     document.title='BIT YIK KI MAM DIOS — Himnario';
     if(push) history.pushState({list:true},'',location.pathname+location.search);
