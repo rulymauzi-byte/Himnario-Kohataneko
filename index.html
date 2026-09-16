@@ -487,6 +487,127 @@ body[data-view-theme="light"] .verse-block.chorus strong,
 body[data-view-theme="light"] .verse-block.chorus em{color:#155fc0!important}
 body[data-view-theme="light"] .chorus-label{color:#c90018!important}
 
+
+/* --- Fondo con textura suave, sin marcos --- */
+body[data-view-theme="light"],
+body[data-view-theme="light"] .app-shell,
+body[data-view-theme="light"] #readerView{
+  background-color:#f4f0e7!important;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(104,78,39,.055) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 78% 66%, rgba(104,78,39,.040) 0 1px, transparent 1.5px),
+    repeating-linear-gradient(0deg, rgba(91,70,41,.018) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(90deg, rgba(91,70,41,.012) 0 1px, transparent 1px 7px)!important;
+  background-size:24px 24px,31px 31px,100% 5px,7px 100%!important;
+}
+body[data-view-theme="dark"],
+body[data-view-theme="dark"] .app-shell,
+body[data-view-theme="dark"] #readerView{
+  background-color:#121416!important;
+  background-image:
+    radial-gradient(circle at 20% 28%, rgba(255,255,255,.035) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 74% 72%, rgba(255,255,255,.024) 0 1px, transparent 1.5px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.010) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.008) 0 1px, transparent 1px 7px)!important;
+  background-size:24px 24px,31px 31px,100% 5px,7px 100%!important;
+}
+/* El lector permanece transparente para que la textura sea continua */
+.reader,
+.reader-head,
+.reader-body{
+  background:transparent!important;
+  background-color:transparent!important;
+}
+
+
+
+/* --- Fondo vivo con movimiento visible, sin marcos --- */
+.app-shell{position:relative;isolation:isolate;overflow-x:hidden}
+.app-shell::before,
+.app-shell::after{
+  content:"";
+  position:fixed;
+  pointer-events:none;
+  z-index:0;
+  inset:52px -26vw -28vh -26vw;
+  transform:translateZ(0);
+}
+/* Capa grande: luces y manchas que se mueven por toda la pantalla */
+.app-shell::before{
+  opacity:.95;
+  background-repeat:no-repeat;
+  background-size:62vw 62vw,68vw 68vw,58vw 58vw,75vw 75vw;
+  animation:livingBlobs 15s ease-in-out infinite alternate;
+  filter:saturate(1.15);
+}
+/* Capa fina: ondas y pequeñas luces en movimiento */
+.app-shell::after{
+  opacity:.48;
+  background-repeat:repeat;
+  background-size:180px 180px,240px 240px,72px 72px;
+  animation:livingWaves 10s linear infinite;
+}
+.topbar{z-index:30}
+main{position:relative;z-index:1}
+
+body[data-view-theme="light"] .app-shell::before{
+  background-image:
+    radial-gradient(circle, rgba(226,178,58,.34) 0 14%, rgba(226,178,58,.10) 30%, transparent 62%),
+    radial-gradient(circle, rgba(65,142,220,.18) 0 13%, rgba(65,142,220,.06) 30%, transparent 60%),
+    radial-gradient(circle, rgba(214,111,87,.14) 0 12%, rgba(214,111,87,.05) 29%, transparent 58%),
+    radial-gradient(circle, rgba(236,203,117,.26) 0 12%, rgba(236,203,117,.06) 30%, transparent 62%);
+  background-position:-6vw 4vh,72vw 12vh,18vw 68vh,72vw 72vh;
+}
+body[data-view-theme="light"] .app-shell::after{
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(177,128,29,.11) 0 2px, transparent 3px),
+    repeating-radial-gradient(ellipse at 50% 50%, rgba(177,128,29,.045) 0 1px, transparent 2px 17px),
+    repeating-linear-gradient(135deg, rgba(130,93,31,.025) 0 1px, transparent 1px 18px);
+}
+
+body[data-view-theme="dark"] .app-shell::before{
+  background-image:
+    radial-gradient(circle, rgba(228,177,55,.30) 0 13%, rgba(228,177,55,.08) 31%, transparent 62%),
+    radial-gradient(circle, rgba(50,125,224,.24) 0 12%, rgba(50,125,224,.07) 30%, transparent 61%),
+    radial-gradient(circle, rgba(152,67,116,.16) 0 11%, rgba(152,67,116,.05) 29%, transparent 58%),
+    radial-gradient(circle, rgba(225,178,71,.20) 0 12%, rgba(225,178,71,.05) 30%, transparent 62%);
+  background-position:-8vw 3vh,70vw 10vh,18vw 70vh,76vw 76vh;
+}
+body[data-view-theme="dark"] .app-shell::after{
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,210,100,.11) 0 2px, transparent 3px),
+    repeating-radial-gradient(ellipse at 50% 50%, rgba(88,145,230,.045) 0 1px, transparent 2px 18px),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.020) 0 1px, transparent 1px 20px);
+}
+
+@keyframes livingBlobs{
+  0%{
+    background-position:-8vw 2vh,74vw 8vh,12vw 72vh,78vw 76vh;
+    transform:scale(1) rotate(0deg);
+  }
+  33%{
+    background-position:10vw 18vh,58vw 30vh,30vw 54vh,58vw 70vh;
+    transform:scale(1.07) rotate(1.5deg);
+  }
+  66%{
+    background-position:22vw 4vh,68vw 52vh,4vw 44vh,38vw 78vh;
+    transform:scale(1.12) rotate(-1deg);
+  }
+  100%{
+    background-position:4vw 30vh,46vw 10vh,42vw 66vh,72vw 50vh;
+    transform:scale(1.05) rotate(1deg);
+  }
+}
+@keyframes livingWaves{
+  0%{background-position:0 0,0 0,0 0;transform:translate3d(0,0,0)}
+  50%{background-position:90px 55px,-120px 85px,36px -28px;transform:translate3d(10px,-8px,0)}
+  100%{background-position:180px 110px,-240px 170px,72px -56px;transform:translate3d(0,0,0)}
+}
+@media (prefers-reduced-motion: reduce){
+  .app-shell::before,.app-shell::after{animation:none}
+}
+}
+
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 </head>
