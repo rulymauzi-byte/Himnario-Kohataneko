@@ -521,91 +521,131 @@ body[data-view-theme="dark"] #readerView{
 
 
 
-/* --- Fondo vivo con movimiento visible, sin marcos --- */
-.app-shell{position:relative;isolation:isolate;overflow-x:hidden}
+/* --- Fondo MUY animado, sin marcos --- */
+.stanza-number{
+  font-weight:950!important;
+  font-size:1.14em;
+  display:inline-block;
+  margin-right:.12em;
+  line-height:1;
+  color:inherit;
+}
+.app-shell{
+  position:relative;
+  isolation:isolate;
+  overflow-x:hidden;
+  min-height:100dvh;
+}
 .app-shell::before,
 .app-shell::after{
   content:"";
   position:fixed;
   pointer-events:none;
   z-index:0;
-  inset:52px -26vw -28vh -26vw;
-  transform:translateZ(0);
+  inset:48px -45vw -45vh -45vw;
+  will-change:transform,background-position,filter;
+  transform:translate3d(0,0,0);
 }
-/* Capa grande: luces y manchas que se mueven por toda la pantalla */
+/* Grandes luces que cruzan la pantalla */
 .app-shell::before{
-  opacity:.95;
+  opacity:.98;
   background-repeat:no-repeat;
-  background-size:62vw 62vw,68vw 68vw,58vw 58vw,75vw 75vw;
-  animation:livingBlobs 15s ease-in-out infinite alternate;
-  filter:saturate(1.15);
+  background-size:62vw 62vw,66vw 66vw,58vw 58vw,72vw 72vw,52vw 52vw,60vw 60vw;
+  animation:superLivingBlobs 7.5s cubic-bezier(.45,.03,.55,.95) infinite alternate;
+  filter:saturate(1.45) contrast(1.06);
 }
-/* Capa fina: ondas y pequeñas luces en movimiento */
+/* Ondas, destellos y líneas en movimiento continuo */
 .app-shell::after{
-  opacity:.48;
+  opacity:.70;
   background-repeat:repeat;
-  background-size:180px 180px,240px 240px,72px 72px;
-  animation:livingWaves 10s linear infinite;
+  background-size:150px 150px,210px 210px,64px 64px,320px 320px;
+  animation:superLivingWaves 4.6s linear infinite;
 }
 .topbar{z-index:30}
 main{position:relative;z-index:1}
 
 body[data-view-theme="light"] .app-shell::before{
   background-image:
-    radial-gradient(circle, rgba(226,178,58,.34) 0 14%, rgba(226,178,58,.10) 30%, transparent 62%),
-    radial-gradient(circle, rgba(65,142,220,.18) 0 13%, rgba(65,142,220,.06) 30%, transparent 60%),
-    radial-gradient(circle, rgba(214,111,87,.14) 0 12%, rgba(214,111,87,.05) 29%, transparent 58%),
-    radial-gradient(circle, rgba(236,203,117,.26) 0 12%, rgba(236,203,117,.06) 30%, transparent 62%);
-  background-position:-6vw 4vh,72vw 12vh,18vw 68vh,72vw 72vh;
+    radial-gradient(circle, rgba(242,186,35,.52) 0 15%, rgba(242,186,35,.17) 30%, transparent 61%),
+    radial-gradient(circle, rgba(31,132,238,.30) 0 14%, rgba(31,132,238,.10) 29%, transparent 60%),
+    radial-gradient(circle, rgba(240,92,104,.22) 0 13%, rgba(240,92,104,.07) 28%, transparent 58%),
+    radial-gradient(circle, rgba(255,211,75,.42) 0 14%, rgba(255,211,75,.12) 31%, transparent 63%),
+    radial-gradient(circle, rgba(80,189,171,.23) 0 13%, rgba(80,189,171,.07) 29%, transparent 58%),
+    radial-gradient(circle, rgba(169,102,223,.18) 0 12%, rgba(169,102,223,.05) 28%, transparent 58%);
+  background-position:-12vw -4vh,76vw 5vh,8vw 68vh,78vw 76vh,38vw 34vh,58vw 58vh;
+  mix-blend-mode:multiply;
 }
 body[data-view-theme="light"] .app-shell::after{
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(177,128,29,.11) 0 2px, transparent 3px),
-    repeating-radial-gradient(ellipse at 50% 50%, rgba(177,128,29,.045) 0 1px, transparent 2px 17px),
-    repeating-linear-gradient(135deg, rgba(130,93,31,.025) 0 1px, transparent 1px 18px);
+    radial-gradient(circle at 20% 20%, rgba(177,128,29,.22) 0 3px, transparent 4px),
+    repeating-radial-gradient(ellipse at 50% 50%, rgba(31,132,238,.075) 0 2px, transparent 3px 18px),
+    repeating-linear-gradient(135deg, rgba(164,116,20,.060) 0 2px, transparent 2px 18px),
+    conic-gradient(from 45deg at 50% 50%, transparent 0 20%, rgba(230,178,45,.07) 25%, transparent 30% 55%, rgba(50,140,230,.05) 60%, transparent 66% 100%);
+  mix-blend-mode:multiply;
 }
 
 body[data-view-theme="dark"] .app-shell::before{
   background-image:
-    radial-gradient(circle, rgba(228,177,55,.30) 0 13%, rgba(228,177,55,.08) 31%, transparent 62%),
-    radial-gradient(circle, rgba(50,125,224,.24) 0 12%, rgba(50,125,224,.07) 30%, transparent 61%),
-    radial-gradient(circle, rgba(152,67,116,.16) 0 11%, rgba(152,67,116,.05) 29%, transparent 58%),
-    radial-gradient(circle, rgba(225,178,71,.20) 0 12%, rgba(225,178,71,.05) 30%, transparent 62%);
-  background-position:-8vw 3vh,70vw 10vh,18vw 70vh,76vw 76vh;
+    radial-gradient(circle, rgba(246,188,39,.48) 0 14%, rgba(246,188,39,.14) 31%, transparent 62%),
+    radial-gradient(circle, rgba(45,137,255,.42) 0 14%, rgba(45,137,255,.12) 30%, transparent 61%),
+    radial-gradient(circle, rgba(214,64,144,.28) 0 12%, rgba(214,64,144,.08) 29%, transparent 59%),
+    radial-gradient(circle, rgba(248,203,73,.34) 0 13%, rgba(248,203,73,.09) 30%, transparent 62%),
+    radial-gradient(circle, rgba(44,213,177,.22) 0 12%, rgba(44,213,177,.06) 28%, transparent 58%),
+    radial-gradient(circle, rgba(142,89,235,.26) 0 12%, rgba(142,89,235,.07) 28%, transparent 58%);
+  background-position:-12vw -4vh,76vw 4vh,8vw 68vh,78vw 76vh,38vw 34vh,58vw 58vh;
+  mix-blend-mode:screen;
 }
 body[data-view-theme="dark"] .app-shell::after{
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(255,210,100,.11) 0 2px, transparent 3px),
-    repeating-radial-gradient(ellipse at 50% 50%, rgba(88,145,230,.045) 0 1px, transparent 2px 18px),
-    repeating-linear-gradient(135deg, rgba(255,255,255,.020) 0 1px, transparent 1px 20px);
+    radial-gradient(circle at 20% 20%, rgba(255,211,102,.22) 0 3px, transparent 4px),
+    repeating-radial-gradient(ellipse at 50% 50%, rgba(80,155,255,.085) 0 2px, transparent 3px 19px),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.040) 0 2px, transparent 2px 20px),
+    conic-gradient(from 45deg at 50% 50%, transparent 0 20%, rgba(255,202,68,.07) 25%, transparent 30% 55%, rgba(55,145,255,.07) 60%, transparent 66% 100%);
+  mix-blend-mode:screen;
 }
 
-@keyframes livingBlobs{
+@keyframes superLivingBlobs{
   0%{
-    background-position:-8vw 2vh,74vw 8vh,12vw 72vh,78vw 76vh;
-    transform:scale(1) rotate(0deg);
+    background-position:-18vw -8vh,82vw 0vh,0vw 76vh,88vw 82vh,36vw 24vh,62vw 64vh;
+    transform:translate3d(-3vw,-2vh,0) scale(.98) rotate(-2deg);
+    filter:saturate(1.25) contrast(1.02);
   }
-  33%{
-    background-position:10vw 18vh,58vw 30vh,30vw 54vh,58vw 70vh;
-    transform:scale(1.07) rotate(1.5deg);
+  20%{
+    background-position:12vw 16vh,58vw 25vh,28vw 50vh,56vw 64vh,70vw 10vh,8vw 44vh;
+    transform:translate3d(4vw,2vh,0) scale(1.09) rotate(2deg);
+    filter:saturate(1.55) contrast(1.08);
   }
-  66%{
-    background-position:22vw 4vh,68vw 52vh,4vw 44vh,38vw 78vh;
-    transform:scale(1.12) rotate(-1deg);
+  40%{
+    background-position:42vw -2vh,70vw 52vh,-10vw 38vh,28vw 80vh,48vw 54vh,82vw 30vh;
+    transform:translate3d(-2vw,4vh,0) scale(1.16) rotate(-1deg);
+    filter:saturate(1.40) contrast(1.05);
+  }
+  60%{
+    background-position:72vw 22vh,8vw 46vh,54vw 72vh,-12vw 8vh,30vw 10vh,50vw 48vh;
+    transform:translate3d(5vw,-3vh,0) scale(1.11) rotate(2.5deg);
+    filter:saturate(1.65) contrast(1.08);
+  }
+  80%{
+    background-position:18vw 58vh,76vw 8vh,6vw 4vh,64vw 70vh,82vw 42vh,24vw 76vh;
+    transform:translate3d(-4vw,3vh,0) scale(1.18) rotate(-2deg);
+    filter:saturate(1.48) contrast(1.06);
   }
   100%{
-    background-position:4vw 30vh,46vw 10vh,42vw 66vh,72vw 50vh;
-    transform:scale(1.05) rotate(1deg);
+    background-position:-6vw 24vh,42vw 4vh,74vw 54vh,20vw 70vh,48vw 18vh,88vw 78vh;
+    transform:translate3d(3vw,0,0) scale(1.06) rotate(1deg);
+    filter:saturate(1.58) contrast(1.07);
   }
 }
-@keyframes livingWaves{
-  0%{background-position:0 0,0 0,0 0;transform:translate3d(0,0,0)}
-  50%{background-position:90px 55px,-120px 85px,36px -28px;transform:translate3d(10px,-8px,0)}
-  100%{background-position:180px 110px,-240px 170px,72px -56px;transform:translate3d(0,0,0)}
+@keyframes superLivingWaves{
+  0%{background-position:0 0,0 0,0 0,0 0;transform:translate3d(0,0,0) rotate(0deg)}
+  25%{background-position:75px 40px,-80px 90px,32px -24px,70px 30px;transform:translate3d(16px,-10px,0) rotate(.5deg)}
+  50%{background-position:150px 80px,-160px 180px,64px -48px,140px 60px;transform:translate3d(-12px,14px,0) rotate(-.5deg)}
+  75%{background-position:225px 120px,-240px 270px,96px -72px,210px 90px;transform:translate3d(18px,7px,0) rotate(.7deg)}
+  100%{background-position:300px 160px,-320px 360px,128px -96px,280px 120px;transform:translate3d(0,0,0) rotate(0deg)}
 }
 @media (prefers-reduced-motion: reduce){
-  .app-shell::before,.app-shell::after{animation:none}
-}
+  .app-shell::before{animation:superLivingBlobs 14s ease-in-out infinite alternate!important}
+  .app-shell::after{animation:superLivingWaves 10s linear infinite!important}
 }
 
 </style>
@@ -915,6 +955,16 @@ body[data-view-theme="dark"] .app-shell::after{
     return blocks;
   }
 
+  function renderStanzaText(text){
+    const raw = String(text ?? '');
+    const m = raw.match(/^(\s*)(estrofa\s*)?(\d+)(\s*[.)º°:\-]?)(\s+)/i);
+    if(!m) return renderText(raw);
+    const prefix = (m[1] || '') + (m[2] || '');
+    const numberToken = (m[3] || '') + (m[4] || '');
+    const rest = raw.slice(m[0].length);
+    return renderText(prefix) + `<strong class="stanza-number">${escapeHtml(numberToken.trim())}</strong> ` + renderText(rest);
+  }
+
   function openHymn(id, push=true){
     const h = hymns.find(x => Number(x.id)===Number(id)); if(!h) return;
     state.view='reader'; state.currentId=h.id;
@@ -927,7 +977,8 @@ body[data-view-theme="dark"] .app-shell::after{
           .trim();
         return `<div class="verse-block chorus"><span class="chorus-label">CORO</span><strong>${renderText(chorusText)}</strong></div>`;
       }
-      return `<div class="verse-block${b.meta?' meta':''}${b.stanzaStart?' stanza-start':''}">${renderText(b.text)}</div>`;
+      const normalHtml = b.stanzaStart ? renderStanzaText(b.text) : renderText(b.text);
+      return `<div class="verse-block${b.meta?' meta':''}${b.stanzaStart?' stanza-start':''}">${normalHtml}</div>`;
     }).join('');
     document.title = `${h.id}. ${h.title} — BIT YIK KI MAM DIOS`;
     window.scrollTo({top:0,behavior:'instant'});
