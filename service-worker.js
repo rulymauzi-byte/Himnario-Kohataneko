@@ -1,4 +1,4 @@
-const CACHE_NAME = 'himnario-bit-yik-2026-09-16-v100';
+const CACHE_NAME = 'himnario-bit-yik-2026-09-16-v101';
 const APP_SHELL = [
   './index.html',
   './manifest.webmanifest',

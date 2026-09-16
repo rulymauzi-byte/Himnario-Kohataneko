@@ -473,6 +473,20 @@ body[data-view-theme="light"] .reader-body{background:transparent!important;bord
   .reader-body{padding-left:2px!important;padding-right:2px!important;}
 }
 
+
+/* --- Coro destacado --- */
+.verse-block.chorus{color:#1769d2!important;font-weight:800}
+.verse-block.chorus strong,.verse-block.chorus em{color:#1769d2!important}
+.chorus-label{color:#d20b1f!important;font-weight:950!important}
+body[data-view-theme="dark"] .verse-block.chorus,
+body[data-view-theme="dark"] .verse-block.chorus strong,
+body[data-view-theme="dark"] .verse-block.chorus em{color:#69a8ff!important}
+body[data-view-theme="dark"] .chorus-label{color:#ff3347!important}
+body[data-view-theme="light"] .verse-block.chorus,
+body[data-view-theme="light"] .verse-block.chorus strong,
+body[data-view-theme="light"] .verse-block.chorus em{color:#155fc0!important}
+body[data-view-theme="light"] .chorus-label{color:#c90018!important}
+
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 </head>
@@ -557,6 +571,26 @@ body[data-view-theme="light"] .reader-body{background:transparent!important;bord
   const themeMenuBtn = $('#themeMenuBtn'), themeMenuPanel = $('#themeMenuPanel');
   const installAppBtn = $('#installAppBtn');
   let deferredInstallPrompt = null;
+
+  function isStandaloneInstalled(){
+    return window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true ||
+      document.referrer.startsWith('android-app://');
+  }
+
+  function markAppInstalled(){
+    try{ localStorage.setItem('hymnal-app-installed','1'); }catch(_e){}
+  }
+
+  function appKnownInstalled(){
+    if(isStandaloneInstalled()){ markAppInstalled(); return true; }
+    try{ return localStorage.getItem('hymnal-app-installed') === '1'; }catch(_e){ return false; }
+  }
+
+  function refreshInstallOption(){
+    if(!installAppBtn) return;
+    installAppBtn.classList.toggle('hidden', appKnownInstalled());
+  }
   const numberDisplay = $('#numberDisplay');
   const numberPadClear = $('#numberPadClear');
   const numberPadKeys = Array.from(document.querySelectorAll('[data-number-key]'));
@@ -898,20 +932,36 @@ body[data-view-theme="light"] .reader-body{background:transparent!important;bord
   function themeMenuWrapContains(target){
     return !!(themeMenuBtn && themeMenuPanel && (themeMenuBtn.contains(target) || themeMenuPanel.contains(target)));
   }
+  refreshInstallOption();
   window.addEventListener('beforeinstallprompt', (e)=>{
     e.preventDefault();
     deferredInstallPrompt = e;
-    if(installAppBtn) installAppBtn.classList.remove('hidden');
+    if(!appKnownInstalled() && installAppBtn) installAppBtn.classList.remove('hidden');
   });
+  window.addEventListener('appinstalled', ()=>{
+    deferredInstallPrompt = null;
+    markAppInstalled();
+    refreshInstallOption();
+    closeThemeMenu();
+  });
+  try{
+    const standaloneQuery = window.matchMedia('(display-mode: standalone)');
+    if(standaloneQuery.addEventListener) standaloneQuery.addEventListener('change', refreshInstallOption);
+    else if(standaloneQuery.addListener) standaloneQuery.addListener(refreshInstallOption);
+  }catch(_e){}
   if(installAppBtn) installAppBtn.addEventListener('click', async()=>{
     closeThemeMenu();
+    if(appKnownInstalled()){ refreshInstallOption(); return; }
     if(deferredInstallPrompt){
       deferredInstallPrompt.prompt();
-      try{ await deferredInstallPrompt.userChoice; }catch(_e){}
+      try{
+        const choice = await deferredInstallPrompt.userChoice;
+        if(choice && choice.outcome === 'accepted') markAppInstalled();
+      }catch(_e){}
       deferredInstallPrompt = null;
-      // El botón se mantiene disponible; si ya está instalada, el navegador abrirá la app en modo independiente.
+      refreshInstallOption();
     }else{
-      alert('Abra esta página desde el enlace de GitHub Pages. En Android (Chrome), toque el menú del navegador y elija “Instalar aplicación” o “Agregar a pantalla principal”. En iPhone (Safari), toque Compartir → Agregar a pantalla de inicio.');
+      alert('En Android (Chrome), abra el menú del navegador y elija “Instalar aplicación” o “Agregar a pantalla principal”. En iPhone (Safari), toque Compartir → Agregar a pantalla de inicio.');
     }
   });
   applyViewTheme(state.viewTheme);
