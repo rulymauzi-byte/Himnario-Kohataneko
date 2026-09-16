@@ -427,6 +427,52 @@ main{width:100%;max-width:none!important;margin:0!important;padding:0 14px 24px!
 .reader{border:0!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important}
 body[data-view-theme="light"] .reader{border:0!important}
 
+
+/* --- Lector completamente plano: sin tarjeta ni marco --- */
+#readerView:not(.hidden){
+  margin-left:-14px!important;
+  margin-right:-14px!important;
+  width:calc(100% + 28px)!important;
+  min-height:calc(100svh - 52px)!important;
+}
+.reader,
+.reader-head,
+.reader-body{
+  border:0!important;
+  outline:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:none!important;
+}
+.reader{overflow:visible!important;margin:0!important;padding:0!important;}
+.reader-head{padding:12px 4px 8px!important;border-bottom:0!important;}
+.reader-body{padding:6px 4px 22px!important;margin:0!important;}
+.reader-number{
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+  margin:0!important;
+  color:var(--gold2)!important;
+}
+.reader-title{margin:6px 0 0!important;padding:0 2px!important;}
+body[data-view-theme="dark"] #readerView{background:#121418!important;}
+body[data-view-theme="light"] #readerView{background:#ffffff!important;}
+body[data-view-theme="dark"] .reader-head,
+body[data-view-theme="dark"] .reader-body,
+body[data-view-theme="light"] .reader-head,
+body[data-view-theme="light"] .reader-body{background:transparent!important;border:0!important;}
+@media(max-width:520px){
+  #readerView:not(.hidden){
+    margin-left:-12px!important;
+    margin-right:-12px!important;
+    width:calc(100% + 24px)!important;
+  }
+  .reader-head{padding-left:2px!important;padding-right:2px!important;}
+  .reader-body{padding-left:2px!important;padding-right:2px!important;}
+}
+
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 </head>
