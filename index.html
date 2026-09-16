@@ -8,10 +8,9 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Himnario">
 <meta name="mobile-web-app-capable" content="yes">
-
 <style>
 :root{
   --bg:#0c0d0f; --panel:#15171b; --panel2:#1d2025; --text:#f7f2e7;
@@ -254,7 +253,46 @@ main{max-width:640px;padding:30px 16px 70px}
 }
 
 
-.install-app-btn{border-top:1px solid #e7dfca!important;margin-top:2px;color:#7a5a12!important}
+/* --- Botones principales más grandes y centrados verticalmente --- */
+#listView.home-screen{
+  min-height:calc(100vh - 112px);
+  justify-content:center;
+  padding-top:0;
+  padding-bottom:0;
+}
+.home-app-card{
+  width:min(100%,420px);
+  margin:auto;
+}
+.home-label{
+  font-size:21px;
+  margin:0 0 18px;
+}
+.home-main-buttons{
+  max-width:270px;
+  width:100%;
+  border-radius:10px;
+}
+.home-main-btn{
+  min-height:68px;
+  font-size:27px;
+  padding:14px 18px;
+}
+#searchByTitleBtn .browse-arrow,
+#searchByTitleBtn span{
+  font-size:26px;
+}
+.mode-panel{
+  width:min(100%,420px);
+}
+@media(max-width:520px){
+  #listView.home-screen{min-height:calc(100vh - 96px)}
+  .home-app-card{width:min(100%,360px)}
+  .home-label{font-size:20px;margin-bottom:16px}
+  .home-main-buttons{max-width:250px}
+  .home-main-btn{min-height:64px;font-size:25px}
+}
+
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 </head>
@@ -269,7 +307,7 @@ main{max-width:640px;padding:30px 16px 70px}
     <div class="display-colors menu-display-colors" role="group" aria-label="Color de visualización">
       <button class="display-color-btn" data-theme="light" type="button"><span class="color-dot light"></span>Claro</button>
       <button class="display-color-btn" data-theme="dark" type="button"><span class="color-dot dark"></span>Oscuro</button>
-      <button id="installAppBtn" class="display-color-btn install-app-btn hidden" type="button">⬇ Instalar app</button>
+      <button id="installAppBtn" class="display-color-btn hidden" type="button">⬇ Instalar app</button>
     </div>
   </div>
 </div>
@@ -337,14 +375,14 @@ main{max-width:640px;padding:30px 16px 70px}
   const nameBrowse = searchByTitleBtn;
   const titleSearchPanel = $('#titleSearchPanel'), numberSearchPanel = $('#numberSearchPanel');
   const themeMenuBtn = $('#themeMenuBtn'), themeMenuPanel = $('#themeMenuPanel');
+  const installAppBtn = $('#installAppBtn');
+  let deferredInstallPrompt = null;
   const numberDisplay = $('#numberDisplay');
   const numberPadClear = $('#numberPadClear');
   const numberPadKeys = Array.from(document.querySelectorAll('[data-number-key]'));
   const backBtn = $('#backBtn'), homeBtn = $('#homeBtn');
   const readerTitle = $('#readerTitle'), readerNumber = $('#readerNumber'), readerBody = $('#readerBody');
   const sizeLabel = $('#sizeLabel');
-  const installAppBtn = $('#installAppBtn');
-  let deferredInstallPrompt = null;
 
   function norm(s){
     return String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
@@ -669,23 +707,7 @@ main{max-width:640px;padding:30px 16px 70px}
     }
   });
 
-  document.querySelectorAll('.display-color-btn[data-theme]').forEach(btn=>btn.addEventListener('click',()=>{applyViewTheme(btn.dataset.theme); closeThemeMenu();}));
-  window.addEventListener('beforeinstallprompt',(e)=>{
-    e.preventDefault();
-    deferredInstallPrompt=e;
-    if(installAppBtn) installAppBtn.classList.remove('hidden');
-  });
-  if(installAppBtn) installAppBtn.addEventListener('click',async()=>{
-    closeThemeMenu();
-    if(deferredInstallPrompt){
-      deferredInstallPrompt.prompt();
-      try{ await deferredInstallPrompt.userChoice; }catch(_e){}
-      deferredInstallPrompt=null;
-      installAppBtn.classList.add('hidden');
-    }else{
-      alert('En Android: abra el menú del navegador y elija “Instalar aplicación” o “Agregar a pantalla principal”. En iPhone: Compartir → Agregar a pantalla de inicio.');
-    }
-  });
+  document.querySelectorAll('.display-color-btn').forEach(btn=>btn.addEventListener('click',()=>{applyViewTheme(btn.dataset.theme); closeThemeMenu();}));
   if(themeMenuBtn) themeMenuBtn.addEventListener('click',(e)=>{e.stopPropagation(); toggleThemeMenu();});
   document.addEventListener('click',(e)=>{
     if(!themeMenuPanel || themeMenuPanel.classList.contains('hidden')) return;
@@ -696,6 +718,22 @@ main{max-width:640px;padding:30px 16px 70px}
   function themeMenuWrapContains(target){
     return !!(themeMenuBtn && themeMenuPanel && (themeMenuBtn.contains(target) || themeMenuPanel.contains(target)));
   }
+  window.addEventListener('beforeinstallprompt', (e)=>{
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    if(installAppBtn) installAppBtn.classList.remove('hidden');
+  });
+  if(installAppBtn) installAppBtn.addEventListener('click', async()=>{
+    closeThemeMenu();
+    if(deferredInstallPrompt){
+      deferredInstallPrompt.prompt();
+      try{ await deferredInstallPrompt.userChoice; }catch(_e){}
+      deferredInstallPrompt = null;
+      installAppBtn.classList.add('hidden');
+    }else{
+      alert('Android: abra el menú del navegador y elija “Instalar aplicación” o “Agregar a pantalla principal”. iPhone: Compartir → Agregar a pantalla de inicio.');
+    }
+  });
   applyViewTheme(state.viewTheme);
   updateFont(); renderList();
   const initial=location.hash.match(/^#himno-(\d+)$/); if(initial) openHymn(Number(initial[1]),false);
