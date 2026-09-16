@@ -293,6 +293,9 @@ main{max-width:640px;padding:30px 16px 70px}
   .home-main-btn{min-height:64px;font-size:25px}
 }
 
+
+.install-menu-btn{margin-top:4px;border-top:1px solid #ece2c9!important;font-weight:800!important;color:#765710!important}
+
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 </head>
@@ -307,7 +310,7 @@ main{max-width:640px;padding:30px 16px 70px}
     <div class="display-colors menu-display-colors" role="group" aria-label="Color de visualización">
       <button class="display-color-btn" data-theme="light" type="button"><span class="color-dot light"></span>Claro</button>
       <button class="display-color-btn" data-theme="dark" type="button"><span class="color-dot dark"></span>Oscuro</button>
-      <button id="installAppBtn" class="display-color-btn hidden" type="button">⬇ Instalar app</button>
+      <button id="installAppBtn" class="display-color-btn install-menu-btn" type="button">⬇ Instalar aplicación</button>
     </div>
   </div>
 </div>
@@ -707,7 +710,7 @@ main{max-width:640px;padding:30px 16px 70px}
     }
   });
 
-  document.querySelectorAll('.display-color-btn').forEach(btn=>btn.addEventListener('click',()=>{applyViewTheme(btn.dataset.theme); closeThemeMenu();}));
+  document.querySelectorAll('.display-color-btn[data-theme]').forEach(btn=>btn.addEventListener('click',()=>{applyViewTheme(btn.dataset.theme); closeThemeMenu();}));
   if(themeMenuBtn) themeMenuBtn.addEventListener('click',(e)=>{e.stopPropagation(); toggleThemeMenu();});
   document.addEventListener('click',(e)=>{
     if(!themeMenuPanel || themeMenuPanel.classList.contains('hidden')) return;
@@ -729,9 +732,9 @@ main{max-width:640px;padding:30px 16px 70px}
       deferredInstallPrompt.prompt();
       try{ await deferredInstallPrompt.userChoice; }catch(_e){}
       deferredInstallPrompt = null;
-      installAppBtn.classList.add('hidden');
+      // El botón se mantiene disponible; si ya está instalada, el navegador abrirá la app en modo independiente.
     }else{
-      alert('Android: abra el menú del navegador y elija “Instalar aplicación” o “Agregar a pantalla principal”. iPhone: Compartir → Agregar a pantalla de inicio.');
+      alert('Abra esta página desde el enlace de GitHub Pages. En Android (Chrome), toque el menú del navegador y elija “Instalar aplicación” o “Agregar a pantalla principal”. En iPhone (Safari), toque Compartir → Agregar a pantalla de inicio.');
     }
   });
   applyViewTheme(state.viewTheme);
