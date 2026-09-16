@@ -864,6 +864,136 @@ body.reader-open .reader-body{
   box-shadow:none!important;
 }
 
+
+/* --- Tema Claro/Oscuro SOLO para el contenido del himno --- */
+/* La pantalla principal conserva siempre su fondo permanente. */
+body:not(.reader-open)[data-view-theme="light"] .app-shell,
+body:not(.reader-open)[data-view-theme="dark"] .app-shell{
+  background-color:#06101a!important;
+  background-image:url('./fondo_app_geometrico.png')!important;
+  background-size:cover!important;
+  background-position:center top!important;
+  background-repeat:no-repeat!important;
+  background-attachment:fixed!important;
+}
+
+/* Oscuro: solamente la lectura del himno */
+body.reader-open[data-view-theme="dark"] .app-shell{
+  background-image:none!important;
+  background:#07111b!important;
+}
+body.reader-open[data-view-theme="dark"] #readerView,
+body.reader-open[data-view-theme="dark"] .reader,
+body.reader-open[data-view-theme="dark"] .reader-head,
+body.reader-open[data-view-theme="dark"] .reader-body{
+  background:#07111b!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+body.reader-open[data-view-theme="dark"] .reader-title,
+body.reader-open[data-view-theme="dark"] .verse-block,
+body.reader-open[data-view-theme="dark"] .verse-block.meta,
+body.reader-open[data-view-theme="dark"] .verse-block em{
+  color:#ffffff!important;
+  text-shadow:none!important;
+}
+
+/* Claro: solamente la lectura del himno */
+body.reader-open[data-view-theme="light"] .app-shell{
+  background-image:none!important;
+  background:#ffffff!important;
+}
+body.reader-open[data-view-theme="light"] #readerView,
+body.reader-open[data-view-theme="light"] .reader,
+body.reader-open[data-view-theme="light"] .reader-head,
+body.reader-open[data-view-theme="light"] .reader-body{
+  background:#ffffff!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+body.reader-open[data-view-theme="light"] .reader-title,
+body.reader-open[data-view-theme="light"] .verse-block,
+body.reader-open[data-view-theme="light"] .verse-block.meta,
+body.reader-open[data-view-theme="light"] .verse-block em{
+  color:#111111!important;
+  text-shadow:none!important;
+}
+
+/* Estos estilos NO cambian con Claro/Oscuro. */
+body.reader-open .chorus-label,
+body.reader-open[data-view-theme="light"] .chorus-label,
+body.reader-open[data-view-theme="dark"] .chorus-label{
+  color:#ff2020!important;
+  font-weight:900!important;
+}
+body.reader-open .verse-block.chorus,
+body.reader-open .verse-block.chorus strong,
+body.reader-open .verse-block.chorus em,
+body.reader-open[data-view-theme="light"] .verse-block.chorus,
+body.reader-open[data-view-theme="light"] .verse-block.chorus strong,
+body.reader-open[data-view-theme="light"] .verse-block.chorus em,
+body.reader-open[data-view-theme="dark"] .verse-block.chorus,
+body.reader-open[data-view-theme="dark"] .verse-block.chorus strong,
+body.reader-open[data-view-theme="dark"] .verse-block.chorus em{
+  color:#279cff!important;
+  font-weight:800!important;
+}
+body.reader-open .stanza-number{
+  font-weight:950!important;
+  font-size:1.14em!important;
+}
+body.reader-open[data-view-theme="dark"] .stanza-number{color:#ffffff!important;}
+body.reader-open[data-view-theme="light"] .stanza-number{color:#111111!important;}
+
+
+/* --- Menú ☰ reparado y siempre visible sobre la interfaz --- */
+.topbar{overflow:visible!important;}
+.header-theme-menu-wrap{
+  position:fixed!important;
+  top:0!important;
+  right:0!important;
+  z-index:99998!important;
+  pointer-events:auto!important;
+}
+#themeMenuBtn{
+  position:relative!important;
+  z-index:100000!important;
+  pointer-events:auto!important;
+}
+#themeMenuPanel{
+  position:fixed!important;
+  top:52px!important;
+  right:0!important;
+  left:auto!important;
+  z-index:99999!important;
+  min-width:170px!important;
+  padding:10px!important;
+  border-radius:0 0 0 14px!important;
+  border:1px solid rgba(219,169,56,.48)!important;
+  background:#ffffff!important;
+  box-shadow:0 12px 28px rgba(0,0,0,.30)!important;
+  pointer-events:auto!important;
+}
+#themeMenuPanel.hidden{display:none!important;}
+#themeMenuPanel:not(.hidden){display:block!important;}
+#themeMenuPanel .menu-display-colors{display:flex!important;flex-direction:column!important;gap:8px!important;}
+#themeMenuPanel .display-color-btn{
+  display:flex!important;
+  width:100%!important;
+  min-height:42px!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  border-radius:10px!important;
+  color:#222!important;
+  background:#f8f8f8!important;
+  border:1px solid #d7d7d7!important;
+  pointer-events:auto!important;
+}
+#themeMenuPanel .display-color-btn.active{
+  border-color:#b78319!important;
+  box-shadow:0 0 0 2px rgba(183,131,25,.16)!important;
+}
+
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 </head>
@@ -999,6 +1129,7 @@ body.reader-open .reader-body{
   function toggleThemeMenu(){
     if(!themeMenuBtn || !themeMenuPanel) return;
     const willOpen = themeMenuPanel.classList.contains('hidden');
+    if(willOpen) refreshInstallOption();
     themeMenuPanel.classList.toggle('hidden', !willOpen);
     themeMenuBtn.classList.toggle('active', willOpen);
     themeMenuBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
@@ -1326,7 +1457,9 @@ body.reader-open .reader-body{
   window.addEventListener('beforeinstallprompt', (e)=>{
     e.preventDefault();
     deferredInstallPrompt = e;
-    if(!appKnownInstalled() && installAppBtn) installAppBtn.classList.remove('hidden');
+    // Si Chrome ofrece instalar, significa que no está instalada en este contexto.
+    try{ localStorage.removeItem('hymnal-app-installed'); }catch(_e){}
+    if(installAppBtn) installAppBtn.classList.remove('hidden');
   });
   window.addEventListener('appinstalled', ()=>{
     deferredInstallPrompt = null;
