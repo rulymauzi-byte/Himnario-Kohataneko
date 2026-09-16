@@ -305,6 +305,112 @@ main{max-width:640px;padding:30px 16px 70px}
 #searchByTitleBtn .browse-arrow{position:absolute!important;right:18px!important;top:50%!important;transform:translateY(-50%)!important;}
 #searchByTitleBtn[aria-expanded="true"] .browse-arrow{transform:translateY(-50%) rotate(180deg)!important;}
 
+
+/* --- Botones Números / Nombre: grandes y centrados de verdad --- */
+#listView.home-screen{
+  display:block!important;
+  min-height:0!important;
+  padding:0!important;
+}
+.home-app-card{
+  width:100%!important;
+  max-width:520px!important;
+  min-height:calc(100dvh - 52px)!important;
+  margin:0 auto!important;
+  padding:24px 18px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  align-items:center!important;
+  text-align:center!important;
+}
+.home-label{
+  width:100%!important;
+  margin:0 0 24px!important;
+  font-size:24px!important;
+  line-height:1.2!important;
+  text-align:center!important;
+}
+.home-main-buttons{
+  width:min(92vw,390px)!important;
+  max-width:none!important;
+  margin:0 auto!important;
+  border-radius:14px!important;
+  overflow:hidden!important;
+}
+.home-main-btn{
+  width:100%!important;
+  min-height:86px!important;
+  padding:16px 58px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  position:relative!important;
+  text-align:center!important;
+  font-size:32px!important;
+  line-height:1!important;
+  font-weight:900!important;
+}
+#searchByNumberBtn{
+  justify-content:center!important;
+  text-align:center!important;
+}
+#searchByTitleBtn{
+  justify-content:center!important;
+  text-align:center!important;
+  padding-left:58px!important;
+  padding-right:58px!important;
+}
+#searchByTitleBtn .browse-arrow{
+  position:absolute!important;
+  right:24px!important;
+  top:50%!important;
+  margin:0!important;
+  font-size:30px!important;
+  transform:translateY(-50%)!important;
+}
+#searchByTitleBtn[aria-expanded="true"] .browse-arrow{
+  transform:translateY(-50%) rotate(180deg)!important;
+}
+.mode-panel{
+  width:min(92vw,390px)!important;
+  margin-top:18px!important;
+}
+@media(max-width:520px){
+  main{padding-top:0!important;padding-bottom:24px!important}
+  .home-app-card{min-height:calc(100dvh - 52px)!important;padding:18px 12px!important}
+  .home-label{font-size:22px!important;margin-bottom:22px!important}
+  .home-main-buttons{width:min(90vw,360px)!important}
+  .home-main-btn{min-height:82px!important;font-size:30px!important}
+  .mode-panel{width:min(90vw,360px)!important}
+}
+
+
+/* --- Corrección definitiva para celular / PWA --- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{min-width:100%;overflow-x:hidden;}
+.topbar{height:52px;min-height:52px;}
+.topbar-inner{height:52px;min-height:52px;padding-top:0!important;padding-bottom:0!important;}
+main{width:100%;max-width:none!important;margin:0!important;padding:0 14px 24px!important;}
+#listView.home-screen{width:100%!important;min-height:calc(100vh - 52px)!important;min-height:calc(100svh - 52px)!important;display:flex!important;align-items:center!important;justify-content:center!important;}
+.home-app-card{width:100%!important;max-width:none!important;min-height:0!important;margin:0!important;padding:0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;}
+.home-label{width:100%!important;max-width:390px!important;margin:0 0 24px!important;text-align:center!important;font-size:24px!important;line-height:1.2!important;}
+.home-main-buttons{width:min(calc(100vw - 36px),390px)!important;max-width:390px!important;margin:0 auto!important;border-radius:14px!important;}
+.home-main-btn{width:100%!important;min-height:86px!important;font-size:32px!important;line-height:1!important;padding:16px 60px!important;}
+#searchByTitleBtn .browse-arrow{right:24px!important;font-size:30px!important;}
+.mode-panel{width:min(calc(100vw - 36px),390px)!important;max-width:390px!important;margin:18px auto 0!important;}
+@supports(height:100dvh){
+  #listView.home-screen{min-height:calc(100dvh - 52px)!important;}
+}
+@media(max-width:520px){
+  main{padding:0 12px 18px!important;}
+  #listView.home-screen{min-height:calc(100svh - 52px)!important;}
+  .home-label{font-size:23px!important;margin-bottom:22px!important;}
+  .home-main-buttons{width:min(calc(100vw - 28px),380px)!important;}
+  .home-main-btn{min-height:84px!important;font-size:31px!important;}
+  .mode-panel{width:min(calc(100vw - 28px),380px)!important;}
+}
+
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 </head>
@@ -751,7 +857,7 @@ main{max-width:640px;padding:30px 16px 70px}
   const initial=location.hash.match(/^#himno-(\d+)$/); if(initial) openHymn(Number(initial[1]),false);
 
   if('serviceWorker' in navigator && location.protocol !== 'file:'){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
+    window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{}));
   }
 
 })();
