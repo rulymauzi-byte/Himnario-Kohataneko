@@ -648,6 +648,197 @@ body[data-view-theme="dark"] .app-shell::after{
   .app-shell::after{animation:superLivingWaves 10s linear infinite!important}
 }
 
+
+/* --- Fondo geométrico estático azul/negro/oro --- */
+html,body{background:#06101a!important;}
+.app-shell{
+  position:relative!important;
+  min-height:100vh!important;
+  overflow-x:hidden!important;
+  background-color:#06101a!important;
+  background-image:
+    linear-gradient(135deg, transparent 0 16%, rgba(8,34,58,.94) 16% 28%, transparent 28% 100%),
+    linear-gradient(315deg, transparent 0 18%, rgba(88,55,8,.36) 18% 30%, transparent 30% 100%),
+    repeating-linear-gradient(135deg, rgba(53,135,190,.16) 0 1px, transparent 1px 13px),
+    repeating-linear-gradient(45deg, rgba(220,170,54,.13) 0 1px, transparent 1px 16px),
+    radial-gradient(circle at 92% 10%, rgba(220,169,55,.28), transparent 24%),
+    radial-gradient(circle at 12% 72%, rgba(18,87,140,.30), transparent 30%),
+    linear-gradient(160deg,#02070d 0%,#071a2a 42%,#02070d 100%)!important;
+  background-attachment:fixed!important;
+  background-repeat:no-repeat, no-repeat, repeat, repeat, no-repeat, no-repeat, no-repeat!important;
+  background-size:100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%!important;
+}
+.app-shell::before,
+.app-shell::after{
+  content:''!important;
+  position:fixed!important;
+  inset:0!important;
+  pointer-events:none!important;
+  z-index:0!important;
+  animation:none!important;
+  transform:none!important;
+  filter:none!important;
+  opacity:1!important;
+}
+.app-shell::before{
+  background:
+    linear-gradient(132deg, transparent 0 23%, rgba(219,169,56,.82) 23% 23.35%, transparent 23.35% 100%),
+    linear-gradient(312deg, transparent 0 68%, rgba(43,124,183,.54) 68% 68.35%, transparent 68.35% 100%),
+    linear-gradient(42deg, transparent 0 77%, rgba(219,169,56,.52) 77% 77.25%, transparent 77.25% 100%)!important;
+}
+.app-shell::after{
+  background:
+    linear-gradient(145deg, rgba(1,7,12,.70) 0 17%, transparent 17% 100%),
+    linear-gradient(325deg, rgba(1,7,12,.70) 0 13%, transparent 13% 100%)!important;
+}
+.topbar,main,#listView,#readerView,.home-screen,.reader,.reader-head,.reader-body{
+  position:relative!important;
+  z-index:1!important;
+}
+.topbar{
+  background:rgba(4,13,22,.94)!important;
+  border-bottom:1px solid rgba(218,169,56,.55)!important;
+  box-shadow:0 2px 14px rgba(0,0,0,.30)!important;
+}
+.centered-brand h1{color:#f0cf74!important;}
+.home-label{color:#f5ecd3!important;text-shadow:0 1px 2px #000!important;}
+.home-main-btn{
+  background:linear-gradient(180deg,#d7ab45,#aa7b17)!important;
+  border-color:#d9b45b!important;
+  color:#07111c!important;
+  text-shadow:none!important;
+}
+.home-main-btn.active{background:linear-gradient(180deg,#edc861,#be8d21)!important;}
+.mode-panel,.number-mode-panel{
+  background:rgba(3,12,20,.78)!important;
+  border:1px solid rgba(219,169,56,.36)!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.25)!important;
+  backdrop-filter:blur(3px)!important;
+}
+.number-panel-title{color:#e6bc55!important;}
+.number-display{
+  background:rgba(2,10,17,.72)!important;
+  border:1px solid rgba(219,169,56,.34)!important;
+  color:#ffffff!important;
+  box-shadow:none!important;
+}
+.number-key{
+  background:linear-gradient(180deg,rgba(17,41,61,.95),rgba(7,20,31,.95))!important;
+  border:1px solid rgba(73,130,168,.48)!important;
+  color:#f5f6f7!important;
+  box-shadow:none!important;
+}
+.number-key.action-key{
+  background:linear-gradient(180deg,#d6aa43,#a97916)!important;
+  border-color:#d8b35c!important;
+  color:#07111c!important;
+}
+.search-box input{
+  background:rgba(2,10,17,.80)!important;
+  color:#fff!important;
+  border:1px solid rgba(91,139,171,.48)!important;
+}
+.search-box input::placeholder{color:#9cacb7!important;}
+.secondary-action{
+  background:rgba(6,23,37,.88)!important;
+  border:1px solid rgba(219,169,56,.32)!important;
+  color:#ead08a!important;
+}
+.hymn-card{
+  background:rgba(3,13,22,.68)!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:none!important;
+  backdrop-filter:blur(2px)!important;
+}
+.hymn-card:hover{background:rgba(8,28,45,.78)!important;}
+.num{
+  background:linear-gradient(180deg,#d6aa43,#a97a18)!important;
+  border:0!important;
+  color:#07111c!important;
+}
+.card-sub{color:#aebbc4!important;}
+.empty{background:rgba(2,10,17,.65)!important;color:#d7dee3!important;border:0!important;}
+.reader-toolbar .icon-btn{
+  background:rgba(3,13,22,.74)!important;
+  color:#f3d277!important;
+  border:1px solid rgba(219,169,56,.28)!important;
+}
+.reader,.reader-head,.reader-body{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.reader-head{border-bottom:0!important;}
+.reader-number{background:#b58a23!important;color:#07111c!important;}
+.reader-title{color:#f0cf74!important;text-shadow:0 2px 8px rgba(0,0,0,.55)!important;}
+.verse-block{color:#f7f7f5!important;text-shadow:0 1px 2px rgba(0,0,0,.60)!important;}
+.verse-block.meta,.verse-block em{color:#d8d3c8!important;}
+.chorus-label{color:#ff2a2a!important;text-shadow:0 1px 2px rgba(0,0,0,.55)!important;}
+.verse-block.chorus,.verse-block.chorus strong{color:#38a6ff!important;}
+body[data-view-theme="light"] .app-shell,
+body[data-view-theme="dark"] .app-shell{background-color:#06101a!important;}
+body[data-view-theme="light"] #readerView,
+body[data-view-theme="dark"] #readerView{background:transparent!important;}
+body[data-view-theme="light"] .reader-title,
+body[data-view-theme="dark"] .reader-title{color:#f0cf74!important;}
+body[data-view-theme="light"] .verse-block,
+body[data-view-theme="dark"] .verse-block{color:#f7f7f5!important;}
+body[data-view-theme="light"] .verse-block.meta,
+body[data-view-theme="dark"] .verse-block.meta,
+body[data-view-theme="light"] .verse-block em,
+body[data-view-theme="dark"] .verse-block em{color:#d8d3c8!important;}
+body[data-view-theme="light"] .chorus-label,
+body[data-view-theme="dark"] .chorus-label{color:#ff2a2a!important;}
+body[data-view-theme="light"] .verse-block.chorus,
+body[data-view-theme="dark"] .verse-block.chorus,
+body[data-view-theme="light"] .verse-block.chorus strong,
+body[data-view-theme="dark"] .verse-block.chorus strong{color:#38a6ff!important;}
+
+
+/* --- Fondo permanente exacto solicitado por el usuario --- */
+html,body{background:#06101a!important;}
+.app-shell,
+body[data-view-theme="light"] .app-shell,
+body[data-view-theme="dark"] .app-shell{
+  background-color:#06101a!important;
+  background-image:url('./fondo_app_geometrico.png')!important;
+  background-size:cover!important;
+  background-position:center top!important;
+  background-repeat:no-repeat!important;
+  background-attachment:fixed!important;
+}
+.app-shell::before,
+.app-shell::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  animation:none!important;
+}
+.topbar{
+  background:rgba(4,13,22,.78)!important;
+  border-bottom:1px solid rgba(218,169,56,.55)!important;
+  backdrop-filter:blur(8px)!important;
+}
+main,#listView,#readerView,.home-screen,.reader,.reader-head,.reader-body{
+  background:transparent!important;
+}
+.reader,.reader-head,.reader-body,
+body[data-view-theme="light"] .reader,
+body[data-view-theme="dark"] .reader,
+body[data-view-theme="light"] .reader-head,
+body[data-view-theme="dark"] .reader-head,
+body[data-view-theme="light"] .reader-body,
+body[data-view-theme="dark"] .reader-body{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.mode-panel,.number-mode-panel,.theme-menu-panel,.hymn-card{
+  background:rgba(3,13,22,.60)!important;
+  backdrop-filter:blur(2px)!important;
+}
+
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 </head>

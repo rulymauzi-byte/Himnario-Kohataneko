@@ -1,11 +1,12 @@
-const CACHE_NAME = 'himnario-bit-yik-2026-09-16-v105';
+const CACHE_NAME = 'himnario-bit-yik-2026-09-16-v107';
 const APP_SHELL = [
   './index.html',
   './manifest.webmanifest',
   './icons/icon-144.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './icons/apple-touch-icon.png'
+  './icons/apple-touch-icon.png',
+  './fondo_app_geometrico.png'
 ];
 
 self.addEventListener('install', event => {
