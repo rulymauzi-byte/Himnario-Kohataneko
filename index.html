@@ -411,6 +411,17 @@ main{width:100%;max-width:none!important;margin:0!important;padding:0 14px 24px!
   .mode-panel{width:min(calc(100vw - 28px),380px)!important;}
 }
 
+
+/* --- Corrección: ocultar realmente la pantalla principal al abrir un himno --- */
+#listView.hidden,
+#readerView.hidden{
+  display:none!important;
+}
+#readerView:not(.hidden){
+  display:block!important;
+  width:100%!important;
+}
+
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 </head>
