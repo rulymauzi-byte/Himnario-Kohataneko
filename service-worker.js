@@ -1,12 +1,13 @@
-const CACHE_NAME = 'himnario-bit-yik-2026-09-16-v108';
+const CACHE_NAME = 'himnario-bit-yik-2026-09-17-v116';
 const APP_SHELL = [
+  './',
   './index.html',
   './manifest.webmanifest',
+  './fondo_app_geometrico.png',
   './icons/icon-144.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './icons/apple-touch-icon.png',
-  './fondo_app_geometrico.png'
+  './icons/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', event => {
@@ -25,14 +26,16 @@ self.addEventListener('activate', event => {
   );
 });
 
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
+});
+
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
-  // Para páginas HTML/navegación: primero Internet, luego caché.
-  // Así GitHub Pages muestra la versión nueva y no una copia vieja.
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request)
+      fetch(event.request, {cache:'no-store'})
         .then(response => {
           const copy = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy));
@@ -43,15 +46,16 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Archivos estáticos: caché primero, con actualización cuando sea necesario.
   event.respondWith(
     caches.match(event.request).then(cached => {
-      if (cached) return cached;
-      return fetch(event.request).then(response => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+      const network = fetch(event.request).then(response => {
+        if (response && response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        }
         return response;
-      });
+      }).catch(() => cached);
+      return cached || network;
     })
   );
 });
