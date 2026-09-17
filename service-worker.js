@@ -1,9 +1,11 @@
-const CACHE_NAME = 'himnario-bit-yik-2026-09-17-v117';
+const CACHE_NAME = 'himnario-bit-yik-2026-09-17-v128';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './fondo_app_geometrico.png',
+  './logo_mauzi.png',
+  './logo_himnario_koataneko_principal.png',
   './icons/icon-144.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
