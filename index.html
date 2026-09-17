@@ -476,9 +476,10 @@ body[data-view-theme="light"] .reader-body{background:transparent!important;bord
 
 /* v116: Buscar Himnos por en blanco */
 .home-label{color:#ffffff!important;}
-.home-logo-wrap{width:100%;display:flex;justify-content:center;align-items:center;margin:0 0 20px 0;}
-.home-logo{width:min(78vw,320px);max-width:320px;height:auto;display:block;filter:drop-shadow(0 10px 18px rgba(0,0,0,.28));}
-@media(max-width:520px){.home-logo-wrap{margin-bottom:16px}.home-logo{width:min(84vw,280px);}}
+.home-brand-wrap{position:relative;width:min(92vw,460px);margin:0 auto 22px auto;display:flex;justify-content:center;align-items:center;}
+.home-brand-main{width:min(72vw,330px);max-width:330px;height:auto;display:block;filter:drop-shadow(0 12px 22px rgba(0,0,0,.30));}
+.home-brand-mauzi{position:absolute;right:-6px;bottom:18px;width:min(34vw,154px);max-width:154px;height:auto;display:block;filter:drop-shadow(0 10px 18px rgba(0,0,0,.34));}
+@media(max-width:520px){.home-brand-wrap{width:min(95vw,400px);margin-bottom:16px}.home-brand-main{width:min(76vw,285px);max-width:285px}.home-brand-mauzi{right:0;bottom:12px;width:min(32vw,118px);max-width:118px;}}
 </style>
 <title>BIT YIK KI MAM DIOS — Himnario</title>
 
@@ -689,7 +690,10 @@ function safeLSRemove(k){
 <main>
 <section id="listView" class="home-screen">
 <div class="home-app-card">
-  <div class="home-logo-wrap"><img src="./logo_mauzi.png" alt="Logo Mauzi" class="home-logo"></div>
+  <div class="home-brand-wrap">
+    <img src="./logo_himnario_koataneko_principal.png" alt="Himnario Koataneko" class="home-brand-main">
+    <img src="./logo_mauzi.png" alt="Logo Mauzi" class="home-brand-mauzi">
+  </div>
   <div class="home-label">Buscar Himnos por:</div>
   <div class="home-main-buttons">
     <button id="searchByNumberBtn" class="home-main-btn" type="button">Números</button>
